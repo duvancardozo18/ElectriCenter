@@ -32,13 +32,28 @@
   </div>
   @endif
 
-  <div class="form-group mb-4">
-    <label class="form-label" for="email">{{ __('common/address.address_1') }}</label>
-    <input type="text" class="form-control" name="address_1" value="" required
-      placeholder="" />
-    <span class="invalid-feedback" role="alert">{{ __('front/common.error_required', ['name' =>
-      __('common/address.address_1')]) }}</span>
-  </div>
+  
+  <div class="row gx-2">
+    <div class="col-6">
+      <div class="form-group mb-4">
+        <label class="form-label" for="country_code">Departamento</label>
+        <select class="form-select" name="state_code" required></select>
+        <span class="invalid-feedback" role="alert">{{ __('front/common.error_required', ['name' =>
+          __('common/address.country')]) }}</span>
+      </div>
+    </div>
+
+    <div class="col-6">
+      <div class="form-group mb-4">
+        <label class="form-label" for="state">Municipio</label>
+        <select class="form-select" name="cities_code" required disabled></select>
+        <span class="invalid-feedback" role="alert">{{ __('front/common.error_required', ['name' =>
+          __('common/address.state')]) }}</span>
+      </div>
+    </div>
+</div>
+
+
   <div class="row gx-2">
    {{--  <div class="col-6">
       <div class="form-group mb-4">
@@ -57,43 +72,49 @@
           __('common/address.zipcode')]) }}</span>
       </div>
     </div> --}}
-    <div class="col-6">
+    {{-- <div class="col-6">
       <div class="form-group mb-4">
         <label class="form-label" for="city">{{ __('common/address.city') }}</label>
         <input type="text" class="form-control" name="city" value="" required placeholder="" />
         <span class="invalid-feedback" role="alert">{{ __('front/common.error_required', ['name' =>
           __('common/address.city')]) }}</span>
       </div>
-    </div>
-    <div class="col-6">
+    </div> --}}
+
+
+    {{-- <div class="col-6">
       <div class="form-group mb-4">
         <label class="form-label" for="country_code">{{ __('common/address.country') }}</label>
         <select class="form-select" name="country_code" required></select>
         <span class="invalid-feedback" role="alert">{{ __('front/common.error_required', ['name' =>
           __('common/address.country')]) }}</span>
       </div>
-    </div>
+    </div> --}}
+
     <div class="col-6">
-      <div class="form-group mb-4">
-        <label class="form-label" for="state">{{ __('common/address.state') }}</label>
-        <select class="form-select" name="state_code" required disabled></select>
-        <span class="invalid-feedback" role="alert">{{ __('front/common.error_required', ['name' =>
-          __('common/address.state')]) }}</span>
-      </div>
+    <div class="form-group mb-4">
+      <label class="form-label" for="email">{{ __('common/address.address_1') }}</label>
+      <input type="text" class="form-control" name="address_1" value="" required
+        placeholder="" />
+      <span class="invalid-feedback" role="alert">{{ __('front/common.error_required', ['name' =>
+        __('common/address.address_1')]) }}</span>
     </div>
-    <div class="col-6">
+  </div>
+
+   <div class="col-6">
       <div class="form-group mb-4">
         <label class="form-label" for="phone">{{ __('common/address.phone') }}</label>
         <input type="text" class="form-control" name="phone" value="" placeholder="" />
       </div>
     </div>
 
-    <div class="col-6">
-      <div class="form-group mb-4 d-flex gap-3">
-           <label class="form-label" for="default">{{__('front/common.default')}}</label>
-          <div class="form-check form-switch">
-          <input class="form-check-input" type="checkbox" role="switch" id="default" name="default" value="1">
-        </div>
+  </div>
+
+  <div class="col-6">
+    <div class="form-group mb-4 d-flex gap-3">
+         <label class="form-label" for="default">{{__('front/common.default')}}</label>
+        <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" role="switch" id="default" name="default" value="1">
       </div>
     </div>
   </div>
@@ -149,7 +170,9 @@
 </form>
 
 @push('footer')
-<script>
+
+
+{{-- <script>
   const settingCountryCode = @json(system_setting('country_code') ?? '');
   const settingStateCode = @json(system_setting('state_code') ?? '');
 
@@ -208,5 +231,72 @@
 
     addressForm.find('.is-valid, .is-invalid').removeClass('is-valid is-invalid');
   }
+</script> --}}
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+      const stateSelect = document.querySelector('select[name="state_code"]');
+      const citySelect = document.querySelector('select[name="cities_code"]');
+
+      // Cargar departamentos al cargar la página
+      fetch('/states')
+          .then(response => {
+              if (!response.ok) {
+                  throw new Error('Error loading states');
+              }
+              return response.json();
+          })
+          .then(data => {
+              // Llenar el select de departamentos
+              stateSelect.innerHTML = '<option value="">Seleccione una opción</option>';
+              data.forEach(state => {
+                  const option = document.createElement('option');
+                  option.value = state.code; // Usar el ID como código
+                  option.textContent = state.name; // Usar el nombre del departamento
+                  stateSelect.appendChild(option);
+              });
+          })
+          .catch(error => {
+              console.error('Error fetching states:', error);
+              stateSelect.innerHTML = '<option value="">Error loading departments</option>';
+          });
+
+      // Evento para cargar los municipios al seleccionar un departamento
+      stateSelect.addEventListener('change', function () {
+          const stateCode = this.value;
+
+          // Limpia y desactiva el select de ciudades mientras se cargan los datos
+          citySelect.innerHTML = '<option value="">Cargando...</option>';
+          citySelect.disabled = true;
+
+          if (stateCode) {
+              fetch(`/cities/${stateCode}`)
+                  .then(response => {
+                      if (!response.ok) {
+                          throw new Error('Error loading cities');
+                      }
+                      return response.json();
+                  })
+                  .then(data => {
+                      // Llenar el select de ciudades
+                      citySelect.innerHTML = '<option value="">Seleccione una opción</option>';
+                      data.forEach(city => {
+                          const option = document.createElement('option');
+                          option.value = city.name; // Usar el nombre de la ciudad como valor
+                          option.textContent = city.name; // Mostrar el nombre de la ciudad
+                          citySelect.appendChild(option);
+                      });
+                      citySelect.disabled = false;
+                  })
+                  .catch(error => {
+                      console.error('Error fetching cities:', error);
+                      citySelect.innerHTML = '<option value="">Error loading cities</option>';
+                  });
+          } else {
+              citySelect.innerHTML = '<option value="">Seleccione un departamento primero</option>';
+          }
+      });
+  });
 </script>
+
 @endpush

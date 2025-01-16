@@ -57,8 +57,11 @@ Route::put('/addresses/{address}', [Controllers\AddressesController::class, 'upd
 Route::delete('/addresses/{address}', [Controllers\AddressesController::class, 'destroy'])->name('addresses.destroy');
 
 // Countries and States
-Route::get('/countries', [Controllers\CountryController::class, 'index'])->name('countries.index');
-Route::get('/countries/{country}', [Controllers\CountryController::class, 'show'])->name('countries.show');
+//Route::get('/countries', [Controllers\CountryController::class, 'index'])->name('countries.index');
+//Route::get('/countries/{country}', [Controllers\CountryController::class, 'show'])->name('countries.show');
+Route::get('/states', [Controllers\CountryController::class, 'getStates'])->name('states');
+Route::get('/cities/{stateCode}', [Controllers\CountryController::class, 'getCities'])->name('cities');
+
 
 // Catalogs
 Route::get('/catalogs', [Controllers\CatalogController::class, 'index'])->name('catalogs.index');

@@ -30,6 +30,7 @@ class CountrySeeder extends Seeder
     private function getCountries(): array
     {
         return [
+            ['name' => 'Colombia', 'code' => 'CO', 'continent' => 'South America'],
             ['name' => 'Algeria', 'code' => 'DZ', 'continent' => 'Africa'],
             ['name' => 'Angola', 'code' => 'AO', 'continent' => 'Africa'],
             ['name' => 'Benin', 'code' => 'BJ', 'continent' => 'Africa'],
@@ -241,7 +242,7 @@ class CountrySeeder extends Seeder
             ['name' => 'Bolivia (Plurinational State of)', 'code' => 'BO', 'continent' => 'South America'],
             ['name' => 'Brazil', 'code' => 'BR', 'continent' => 'South America'],
             ['name' => 'Chile', 'code' => 'CL', 'continent' => 'South America'],
-            ['name' => 'Colombia', 'code' => 'CO', 'continent' => 'South America'],
+
             ['name' => 'Ecuador', 'code' => 'EC', 'continent' => 'South America'],
             ['name' => 'Falkland Islands (the) [Malvinas]', 'code' => 'FK', 'continent' => 'South America'],
             ['name' => 'French Guiana', 'code' => 'GF', 'continent' => 'South America'],

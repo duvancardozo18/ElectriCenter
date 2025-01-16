@@ -111,15 +111,15 @@
           </div>
 
 
-        
-          <div class="checkout-item">
+        {{-- Enviar comentarios --}}
+        {{--   <div class="checkout-item">
             <div class="title-wrap">
               <div class="title">{{ __('front/checkout.order_comment') }}</div>
             </div>
             <div class="checkout-select">
               <textarea class="form-control" rows="4" v-model="current.comment" placeholder="{{ __('front/checkout.order_comment') }}"></textarea>
             </div>
-          </div>
+          </div> --}}
         </div>
       </div>
 

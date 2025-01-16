@@ -12,7 +12,7 @@ return [
     'billing_methods'       => 'Métodos de facturación',
     'cancel_create'         => 'Cancelar',
     'checkout'              => 'Checkout',
-    'create_address'        => 'Crear dirección',
+    'create_address'        => 'Información Personal',
     'failed'                => 'Nombre de usuario o contraseña incorrectos.',
     'my_order'              => 'Mi pedido',
     'no_billing_methods'    => 'No hay métodos de facturación, póngase en contacto con el administrador',
