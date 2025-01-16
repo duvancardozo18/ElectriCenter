@@ -31,7 +31,7 @@ class CountrySeeder extends Seeder
     {
         return [
             ['name' => 'Colombia', 'code' => 'CO', 'continent' => 'South America'],
-            ['name' => 'Algeria', 'code' => 'DZ', 'continent' => 'Africa'],
+           /*  ['name' => 'Algeria', 'code' => 'DZ', 'continent' => 'Africa'],
             ['name' => 'Angola', 'code' => 'AO', 'continent' => 'Africa'],
             ['name' => 'Benin', 'code' => 'BJ', 'continent' => 'Africa'],
             ['name' => 'Botswana', 'code' => 'BW', 'continent' => 'Africa'],
@@ -279,7 +279,7 @@ class CountrySeeder extends Seeder
             ['name' => 'Trinidad and Tobago', 'code' => 'TT', 'continent' => 'The Caribbean'],
             ['name' => 'Turks and Caicos Islands (the)', 'code' => 'TC', 'continent' => 'The Caribbean'],
             ['name' => 'Virgin Islands (British)', 'code' => 'VG', 'continent' => 'The Caribbean'],
-            ['name' => 'Virgin Islands (U.S.)', 'code' => 'VI', 'continent' => 'The Caribbean'],
+            ['name' => 'Virgin Islands (U.S.)', 'code' => 'VI', 'continent' => 'The Caribbean'], */
         ];
     }
 }

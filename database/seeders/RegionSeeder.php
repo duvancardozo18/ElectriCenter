@@ -43,13 +43,13 @@ class RegionSeeder extends Seeder
         return [
             [
                 'name'          => 'CO-DC',
-                'description'   => 'California, United States of America',
+                'description'   => 'Bogotá D.C.',
                 'position'      => 0,
                 'active'        => true,
                 'region_states' => [
                     [
-                        'country_id' => $country->id,
-                        'state_id'   => $state->id,
+                        'country_id' => 1,
+                        'state_id'   => 1,
                     ],
                 ],
             ],
